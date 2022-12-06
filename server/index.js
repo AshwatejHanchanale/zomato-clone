@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 
 //database connection
 import ConnectDB from "./database/connection";
+import Auth from "./api/auth";
 
 
 dotenv.config();
@@ -17,16 +18,20 @@ zomato.get("/", (req, res) => {
     });
 });
 
+// auth/signup
+zomato.use('/auth', Auth);
+
+
 zomato.listen(4000, () => {
 
-    // ConnectDB()
-    //     .then(() => {
-    //         console.log("server is running!!!");
-    //     })
-    //     .catch((error) => {
-    //         console.log("server is running .but database connection failed");
-    //         console.log(error);
-    //     });
+    ConnectDB()
+        .then(() => {
+            console.log("server is running!!!");
+        })
+        .catch((error) => {
+            console.log("server is running .but database connection failed");
+            console.log(error);
+        });
 
-    console.log("server is running!!!");
+
 });
